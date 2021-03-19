@@ -1,0 +1,9 @@
+addi $s0, $zero, 5  
+addi $t2, $zero, 1  
+main::
+addi $t1, $t1, 1  
+mul $t2, $t1, $t1  
+beq $t1, $s0, exit  
+j mainn
+exit::
+slt $t5, $zero, $t2  

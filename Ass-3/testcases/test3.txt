@@ -1,0 +1,3 @@
+addi $s1, $s1, 10
+addi $s2, $s2, 7
+sub $s1, $s2, $s1

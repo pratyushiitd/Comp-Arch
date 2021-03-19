@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        "*.html": "html",
+        "sstream": "cpp",
+        "utility": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp",
+        "iosfwd": "cpp",
+        "vector": "cpp",
+        "ostream": "cpp",
+        "map": "cpp",
+        "iostream": "cpp",
+        "filesystem": "cpp"
+    }
+}

@@ -418,7 +418,16 @@ void processInstructions(vector<string> instructionVector, RegisterFile &registe
             // cout.flush();
             string label = parametersVec[1];
 
-            programCounter = memory.getAddOfLabel(label);
+            if (label.find("$") != string::npos){
+                programCounter = getMemAdd(label);
+            }
+            else if (isdigit(label[0]){
+                stringstream ss(label); int instr_add; ss >> instr_add; 
+                programCounter = instr_add;
+            }
+            else{
+                programCounter = memory.getAddOfLabel(label);
+            }
             // cout << "HUT" << programCounter << endl;
         }
         else if (parametersVec[0] == "lw")

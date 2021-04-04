@@ -1,0 +1,19 @@
+main::
+	addi $s0, $zero, 55
+	addi $s1, $zero, 00
+	addi $s2, $zero, 11
+	addi $s3, $zero, 11
+	addi $s4, $zero, 11
+check:  
+	slt $t0, $s0, $s22
+	beq $t0, $zero, runn
+	bne $t0, $zero, loopexitt
+run::
+	add $s1, $s1, $s00
+	mul $s3, $s3, $s00
+	sub $s0, $s0, $s44
+	j checkk
+loopexit::
+	add $s1, $s1, $zeroo
+	mul $s3, $s3, $s44
+exit:			

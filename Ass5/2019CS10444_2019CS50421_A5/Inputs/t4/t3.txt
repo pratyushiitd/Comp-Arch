@@ -1,0 +1,6 @@
+lw $t1, 1000($zero)
+addi $t2, $t2, 1
+add $t2, $t2, $t2
+addi $t2, $t2, 1
+addi $t2, $t2, 2
+add $t0, $t0, $t1

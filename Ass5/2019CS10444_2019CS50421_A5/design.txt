@@ -1,0 +1,80 @@
+#Assume each core to have disjoint address space.  
+Therefore, two programs do not access the same memory address.
+
+#lw/sw across programs will not access a same memory address. 
+
+#Divide the memory blocks across all the cores available. 
+Each core can access it's memory blocks only and can not access memory blocks of other cores.
+
+#While accessing DRAM these relative addresses are converted into physical/absolute addresses. 
+
+#core-1 : lw $t0, 0($s0) (suppose $s0 = 1000) Assuming core-1 is given memory from address 0 - 8191
+                $t0 will read the data from address 1000 (physical address)
+
+#core-2 : lw $t0, 0($s0) (suppose $s0 = 1000) Assuming core-2 is given memory from address 8192 - 16383
+               $t0 will read the data from address 1000+8192=9192 (physical address)  (1000 refers to relative address)
+
+#Since there are N processors and only 1 DRAM, some "arbitration" is needed to ensure 
+that only one processor's request goes to the DRAM at any time. This task is performed by the 
+Memory Request Manager, which sees N CPUs on one side, and 1 DRAM on the other.
+
+There is only 1 DRAM. All cores will access the same DRAM, but each core has it's 
+share of DRAM addresses it can access. There can be only 1 DRAM access at a time and while 
+DRAM is being accessed, other DRAM requests can not be issued to DRAM. The pending requests wait in the buffer.
+
+Each core will be accessing different memory blocks. Make  the implementation
+in such a way that one core can not access DRAM memory of other cores.
+
+In this assignment you can assume that instructions are not stored in DRAM, and all DRAM accesses are data accesses.
+
+If multiple lw/sw requests are raised in a single clock cycle (by different cores), can we assume that all these requests can be added to the DRAM buffer in a single clock cycle? 
+
+This question is about the cycle analysis.
+We encourage you to think what can be done in one cycle or what operation
+needs more than one cycle and come up with a feasible and efficient approach. 
+
+
+
+
+Avoid Memory Contention: Memory contention is the situation in which two 
+different programs try to make use of the same memory resources such as 
+disk space, RAM, cache, or processing threads at the same time. This could 
+result in deadlock or thrashing (when the memory is forced to constantly 
+receive and store data in secondary storage blocks called pages).
+
+Memory bus traffic and core interactions should be kept as low as possible 
+by avoiding sharing storage drives and data. Access to shared memory can be
+regulated by queuing and using a good scheduler program.
+
+
+Avoid False Sharing: False sharing occurs when two or more
+ processors in a multi-core system are making use of the same cache
+  line that is not related to their operations concurrently. The cache
+   system could become confused and this might result in invalidating or 
+   rewriting the cached copy of other processors.
+
+Different processors have different ways of dealing with false sharing
+ problems. It can be avoided by carefully aligning data structures to \
+ suit cache line boundaries using a compiler alignment program used for 
+ compiling cache boundary for each processor. Another way of dealing with 
+ false sharing is by grouping frequently used fields of a data to ensure 
+ that they are located in the same cache line and can be easily accessed when needed.
+
+
+
+
+ In multi-core systems, main memory is a major shared resource among processor cores. Tasks
+running concurrently on different cores contend with each other to access main memory, thereby
+increasing their execution times.
+
+
+https://users.ece.cmu.edu/~omutlu/pub/bounding-and-reducing-memory-delay_jrts16.pdf
+
+Row-hit memory requests have higher priorities than row-conflict requests.
+2. In case of a tie, older requests have higher priorities.
+
+
+If the cores are running different programs, then separate address
+ spaces is a simple way of ensuring security (one program shouldn't 
+ corrupt another program's data). However, some ways to communicate across 
+ cores though safe and controlled mechanisms are indeed needed.

@@ -1,0 +1,1082 @@
+
+
+Core #1
+main:
+	addi $s0, $zero, 5
+	addi $s1, $zero, 0
+	addi $s2, $zero, 1
+	addi $s3, $zero, 1
+	addi $s4, $zero, 1
+check: 
+	slt $t0, $s0, $s2
+	beq $t0, $zero, run
+	bne $t0, $zero, loopexit
+run:
+	add $s1, $s1, $s0
+	mul $s3, $s3, $s0
+	sub $s0, $s0, $s4
+	j check
+loopexit:
+	add $s1, $s1, $zero
+	mul $s3, $s3, $s4
+exit:
+EOF
+
+Core #2
+addi $s0, $s0, 20
+sw $s0, 1000($zero)
+lw $s1, 1028($zero)
+add $s1, $s1, $s0
+mul $s2, $s1, $s0
+EOF
+
+Core #3
+addi $t0, $t0, 15
+sw $t0, 1000($zero)
+lw $t1, 1000($zero)
+add $t1, $t1, $t1
+mul $t2, $t1, $t0
+EOF
+
+Core #4
+main:
+	addi $s0, $zero, 1000
+	addi $s1, $zero, 2500
+	addi $t0, $zero, 1
+	addi $t1, $zero, 2
+	addi $t2, $zero, 3
+	addi $t3, $zero, 4
+	sw $t0, 0($s0)	#store 1 at location 1000
+	sw $t1, 0($s1)	#store 2 at location 2500
+	sw $t2, 4($s0)	#store 3 at location 1004
+	sw $t3, 4($s1)	#store 4 at location 2504
+	lw $t5, 0($s0)
+	lw $t6, 0($s1)
+	lw $t7, 4($s0)
+	lw $t8, 4($s1)
+exit:
+EOF
+
+Instructions read successfully
+
+Instructions stored successfully
+
+Clock cycle 1
+Core #1: 
+Instruction executed : 	addi $s0, $zero, 5
+Core #2: 
+Instruction executed : addi $s0, $s0, 20
+Core #3: 
+Instruction executed : addi $t0, $t0, 15
+Core #4: 
+Instruction executed : 	addi $s0, $zero, 1000
+
+Clock cycle 2
+Core #1: 
+Instruction executed : 	addi $s1, $zero, 0
+Core #2: 
+DRAM Request Issued for sw $s0, 1000($zero)
+Core #3: 
+Core #4: 
+Instruction executed : 	addi $s1, $zero, 2500
+Loading Row 16 in Row Buffer
+
+Clock cycle 3
+Core #1: 
+Instruction executed : 	addi $s2, $zero, 1
+Core #2: 
+DRAM Request Issued for lw $s1, 1028($zero)
+Core #3: 
+Core #4: 
+Instruction executed : 	addi $t0, $zero, 1
+Loading Row 16 in Row Buffer
+
+Clock cycle 4
+Core #1: 
+Instruction executed : 	addi $s3, $zero, 1
+Core #2: 
+Core #3: 
+DRAM Request Issued for sw $t0, 1000($zero)
+Core #4: 
+Instruction executed : 	addi $t1, $zero, 2
+Loading Row 16 in Row Buffer
+
+Clock cycle 5
+Core #1: 
+Instruction executed : 	addi $s4, $zero, 1
+Core #2: 
+Core #3: 
+DRAM Request Issued for lw $t1, 1000($zero)
+Core #4: 
+Instruction executed : 	addi $t2, $zero, 3
+Loading Row 16 in Row Buffer
+
+Clock cycle 6
+Core #1: 
+Instruction executed : 	slt $t0, $s0, $s2
+Core #2: 
+Core #3: 
+Core #4: 
+Instruction executed : 	addi $t3, $zero, 4
+Loading Row 16 in Row Buffer
+
+Clock cycle 7
+Core #1: 
+Instruction executed : 	beq $t0, $zero, run
+Core #2: 
+Core #3: 
+Core #4: 
+DRAM Request Issued for 	sw $t0, 0($s0)	#store 1 at location 1000
+Loading Row 16 in Row Buffer
+
+Clock cycle 8
+Core #1: 
+Instruction executed : 	add $s1, $s1, $s0
+Core #2: 
+Core #3: 
+Core #4: 
+DRAM Request Issued for 	sw $t1, 0($s1)	#store 2 at location 2500
+Loading Row 16 in Row Buffer
+
+Clock cycle 9
+Core #1: 
+Instruction executed : 	mul $s3, $s3, $s0
+Core #2: 
+Core #3: 
+Core #4: 
+DRAM Request Issued for 	sw $t2, 4($s0)	#store 3 at location 1004
+Loading Row 16 in Row Buffer
+
+Clock cycle 10
+Core #1: 
+Instruction executed : 	sub $s0, $s0, $s4
+Core #2: 
+Core #3: 
+Core #4: 
+DRAM Request Issued for 	sw $t3, 4($s1)	#store 4 at location 2504
+Loading Row 16 in Row Buffer
+
+Clock cycle 11
+Core #1: 
+Instruction executed : 	j check
+Core #2: 
+Core #3: 
+Core #4: 
+DRAM Request Issued for 	lw $t5, 0($s0)
+Loading Row 16 in Row Buffer
+
+Clock cycle 12
+Core #1: 
+Instruction executed : 	slt $t0, $s0, $s2
+Core #2: 
+Core #3: 
+Core #4: 
+DRAM Request Issued for 	lw $t6, 0($s1)
+Loading Column 1000 in Row Buffer
+
+Clock cycle 13
+Core #1: 
+Instruction executed : 	beq $t0, $zero, run
+Core #2: 
+Execution of Instruction sw $s0, 1000($zero) finished
+Core #3: 
+Core #4: 
+DRAM Request Issued for 	lw $t7, 4($s0)
+Loading Column 1000 in Row Buffer
+
+
+Clock cycle 14
+Core #1: 
+Instruction executed : 	add $s1, $s1, $s0
+Core #2: 
+Core #3: 
+Core #4: 
+DRAM Request Issued for 	lw $t8, 4($s1)
+Writing Back Row 16 in Row Buffer
+
+Clock cycle 15
+Core #1: 
+Instruction executed : 	mul $s3, $s3, $s0
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 16 in Row Buffer
+
+Clock cycle 16
+Core #1: 
+Instruction executed : 	sub $s0, $s0, $s4
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 16 in Row Buffer
+
+Clock cycle 17
+Core #1: 
+Instruction executed : 	j check
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 16 in Row Buffer
+
+Clock cycle 18
+Core #1: 
+Instruction executed : 	slt $t0, $s0, $s2
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 16 in Row Buffer
+
+Clock cycle 19
+Core #1: 
+Instruction executed : 	beq $t0, $zero, run
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 16 in Row Buffer
+
+Clock cycle 20
+Core #1: 
+Instruction executed : 	add $s1, $s1, $s0
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 16 in Row Buffer
+
+Clock cycle 21
+Core #1: 
+Instruction executed : 	mul $s3, $s3, $s0
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 16 in Row Buffer
+
+Clock cycle 22
+Core #1: 
+Instruction executed : 	sub $s0, $s0, $s4
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 16 in Row Buffer
+
+Clock cycle 23
+Core #1: 
+Instruction executed : 	j check
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 16 in Row Buffer
+
+Clock cycle 24
+Core #1: 
+Instruction executed : 	slt $t0, $s0, $s2
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 17 in Row Buffer
+
+Clock cycle 25
+Core #1: 
+Instruction executed : 	beq $t0, $zero, run
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 17 in Row Buffer
+
+Clock cycle 26
+Core #1: 
+Instruction executed : 	add $s1, $s1, $s0
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 17 in Row Buffer
+
+Clock cycle 27
+Core #1: 
+Instruction executed : 	mul $s3, $s3, $s0
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 17 in Row Buffer
+
+Clock cycle 28
+Core #1: 
+Instruction executed : 	sub $s0, $s0, $s4
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 17 in Row Buffer
+
+Clock cycle 29
+Core #1: 
+Instruction executed : 	j check
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 17 in Row Buffer
+
+Clock cycle 30
+Core #1: 
+Instruction executed : 	slt $t0, $s0, $s2
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 17 in Row Buffer
+
+Clock cycle 31
+Core #1: 
+Instruction executed : 	beq $t0, $zero, run
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 17 in Row Buffer
+
+Clock cycle 32
+Core #1: 
+Instruction executed : 	add $s1, $s1, $s0
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 17 in Row Buffer
+
+Clock cycle 33
+Core #1: 
+Instruction executed : 	mul $s3, $s3, $s0
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 17 in Row Buffer
+
+Clock cycle 34
+Core #1: 
+Instruction executed : 	sub $s0, $s0, $s4
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Column 4 in Row Buffer
+
+Clock cycle 35
+Core #1: 
+Instruction executed : 	j check
+Core #2: 
+Execution of Instruction lw $s1, 1028($zero) finished
+Core #3: 
+Core #4: 
+Loading Column 4 in Row Buffer
+
+
+Clock cycle 36
+Core #1: 
+Instruction executed : 	slt $t0, $s0, $s2
+Core #2: 
+Instruction executed : add $s1, $s1, $s0
+Core #3: 
+Core #4: 
+Writing Back Row 17 in Row Buffer
+
+Clock cycle 37
+Core #1: 
+Instruction executed : 	beq $t0, $zero, run
+Core #2: 
+Instruction executed : mul $s2, $s1, $s0
+Core #3: 
+Core #4: 
+Writing Back Row 17 in Row Buffer
+
+Clock cycle 38
+Core #1: 
+Instruction executed : 	bne $t0, $zero, loopexit
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 17 in Row Buffer
+
+Clock cycle 39
+Core #1: 
+Instruction executed : 	add $s1, $s1, $zero
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 17 in Row Buffer
+
+Clock cycle 40
+Core #1: 
+Instruction executed : 	mul $s3, $s3, $s4
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 17 in Row Buffer
+
+Clock cycle 41
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 17 in Row Buffer
+
+Clock cycle 42
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 17 in Row Buffer
+
+Clock cycle 43
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 17 in Row Buffer
+
+Clock cycle 44
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 17 in Row Buffer
+
+Clock cycle 45
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 17 in Row Buffer
+
+Clock cycle 46
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 32 in Row Buffer
+
+Clock cycle 47
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 32 in Row Buffer
+
+Clock cycle 48
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 32 in Row Buffer
+
+Clock cycle 49
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 32 in Row Buffer
+
+Clock cycle 50
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 32 in Row Buffer
+
+Clock cycle 51
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 32 in Row Buffer
+
+Clock cycle 52
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 32 in Row Buffer
+
+Clock cycle 53
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 32 in Row Buffer
+
+Clock cycle 54
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 32 in Row Buffer
+
+Clock cycle 55
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 32 in Row Buffer
+
+Clock cycle 56
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Column 1000 in Row Buffer
+
+Clock cycle 57
+Core #1: 
+Core #2: 
+Core #3: 
+Execution of Instruction lw $t1, 1000($zero) finished
+Core #4: 
+Loading Column 1000 in Row Buffer
+
+
+Clock cycle 58
+Core #1: 
+Core #2: 
+Core #3: 
+Instruction executed : add $t1, $t1, $t1
+Core #4: 
+Loading Column 1000 in Row Buffer
+
+Clock cycle 59
+Core #1: 
+Core #2: 
+Core #3: 
+Instruction executed : mul $t2, $t1, $t0
+Execution of Instruction sw $t0, 1000($zero) finished
+Core #4: 
+Loading Column 1000 in Row Buffer
+
+
+Clock cycle 60
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 32 in Row Buffer
+
+Clock cycle 61
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 32 in Row Buffer
+
+Clock cycle 62
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 32 in Row Buffer
+
+Clock cycle 63
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 32 in Row Buffer
+
+Clock cycle 64
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 32 in Row Buffer
+
+Clock cycle 65
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 32 in Row Buffer
+
+Clock cycle 66
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 32 in Row Buffer
+
+Clock cycle 67
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 32 in Row Buffer
+
+Clock cycle 68
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 32 in Row Buffer
+
+Clock cycle 69
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 32 in Row Buffer
+
+Clock cycle 70
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 48 in Row Buffer
+
+Clock cycle 71
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 48 in Row Buffer
+
+Clock cycle 72
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 48 in Row Buffer
+
+Clock cycle 73
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 48 in Row Buffer
+
+Clock cycle 74
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 48 in Row Buffer
+
+Clock cycle 75
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 48 in Row Buffer
+
+Clock cycle 76
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 48 in Row Buffer
+
+Clock cycle 77
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 48 in Row Buffer
+
+Clock cycle 78
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 48 in Row Buffer
+
+Clock cycle 79
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 48 in Row Buffer
+
+Clock cycle 80
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Column 1000 in Row Buffer
+
+Clock cycle 81
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Execution of Instruction 	lw $t5, 0($s0) finished
+Loading Column 1000 in Row Buffer
+
+
+Clock cycle 82
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Column 1000 in Row Buffer
+
+Clock cycle 83
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Execution of Instruction 	sw $t0, 0($s0)	#store 1 at location 1000 finished
+Loading Column 1000 in Row Buffer
+
+
+Clock cycle 84
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Column 1004 in Row Buffer
+
+Clock cycle 85
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Execution of Instruction 	lw $t7, 4($s0) finished
+Loading Column 1004 in Row Buffer
+
+
+Clock cycle 86
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Column 1004 in Row Buffer
+
+Clock cycle 87
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Execution of Instruction 	sw $t2, 4($s0)	#store 3 at location 1004 finished
+Loading Column 1004 in Row Buffer
+
+
+Clock cycle 88
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 48 in Row Buffer
+
+Clock cycle 89
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 48 in Row Buffer
+
+Clock cycle 90
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 48 in Row Buffer
+
+Clock cycle 91
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 48 in Row Buffer
+
+Clock cycle 92
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 48 in Row Buffer
+
+Clock cycle 93
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 48 in Row Buffer
+
+Clock cycle 94
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 48 in Row Buffer
+
+Clock cycle 95
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 48 in Row Buffer
+
+Clock cycle 96
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 48 in Row Buffer
+
+Clock cycle 97
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Writing Back Row 48 in Row Buffer
+
+Clock cycle 98
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 50 in Row Buffer
+
+Clock cycle 99
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 50 in Row Buffer
+
+Clock cycle 100
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 50 in Row Buffer
+
+Clock cycle 101
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 50 in Row Buffer
+
+Clock cycle 102
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 50 in Row Buffer
+
+Clock cycle 103
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 50 in Row Buffer
+
+Clock cycle 104
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 50 in Row Buffer
+
+Clock cycle 105
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 50 in Row Buffer
+
+Clock cycle 106
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 50 in Row Buffer
+
+Clock cycle 107
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Row 50 in Row Buffer
+
+Clock cycle 108
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Column 452 in Row Buffer
+
+Clock cycle 109
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Execution of Instruction 	lw $t6, 0($s1) finished
+Loading Column 452 in Row Buffer
+
+
+Clock cycle 110
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Column 452 in Row Buffer
+
+Clock cycle 111
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Execution of Instruction 	sw $t1, 0($s1)	#store 2 at location 2500 finished
+Loading Column 452 in Row Buffer
+
+
+Clock cycle 112
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Column 456 in Row Buffer
+
+Clock cycle 113
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Execution of Instruction 	lw $t8, 4($s1) finished
+Loading Column 456 in Row Buffer
+
+
+Clock cycle 114
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Loading Column 456 in Row Buffer
+
+Clock cycle 115
+Core #1: 
+Core #2: 
+Core #3: 
+Core #4: 
+Execution of Instruction 	sw $t3, 4($s1)	#store 4 at location 2504 finished
+Loading Column 456 in Row Buffer
+
+
+Total Instructions executed in 115 cycles = 64
+Average Number of Instructions per cycle (IPC) = 0.556522
+Throughput Efficiency 55.6522 %
+
+
+Program Execution successful
+
+===========================================================
+Number of times each instruction was executed: 
+
+Core #1: 
+	addi $s0, $zero, 5
+1
+	addi $s1, $zero, 0
+1
+	addi $s2, $zero, 1
+1
+	addi $s3, $zero, 1
+1
+	addi $s4, $zero, 1
+1
+	slt $t0, $s0, $s2
+6
+	beq $t0, $zero, run
+6
+	bne $t0, $zero, loopexit
+1
+	add $s1, $s1, $s0
+5
+	mul $s3, $s3, $s0
+5
+	sub $s0, $s0, $s4
+5
+	j check
+5
+	add $s1, $s1, $zero
+1
+	mul $s3, $s3, $s4
+1
+
+Core #2: 
+addi $s0, $s0, 20
+1
+sw $s0, 1000($zero)
+1
+lw $s1, 1028($zero)
+1
+add $s1, $s1, $s0
+1
+mul $s2, $s1, $s0
+1
+
+Core #3: 
+addi $t0, $t0, 15
+1
+sw $t0, 1000($zero)
+1
+lw $t1, 1000($zero)
+1
+add $t1, $t1, $t1
+1
+mul $t2, $t1, $t0
+1
+
+Core #4: 
+	addi $s0, $zero, 1000
+1
+	addi $s1, $zero, 2500
+1
+	addi $t0, $zero, 1
+1
+	addi $t1, $zero, 2
+1
+	addi $t2, $zero, 3
+1
+	addi $t3, $zero, 4
+1
+	sw $t0, 0($s0)	#store 1 at location 1000
+1
+	sw $t1, 0($s1)	#store 2 at location 2500
+1
+	sw $t2, 4($s0)	#store 3 at location 1004
+1
+	sw $t3, 4($s1)	#store 4 at location 2504
+1
+	lw $t5, 0($s0)
+1
+	lw $t6, 0($s1)
+1
+	lw $t7, 4($s0)
+1
+	lw $t8, 4($s1)
+1
+
+
+===========================================================
+Estimated Delay caused due to MRM Operations = 41 clock cycles.
+===========================================================
+Memory content at the end of the execution
+
+Core #1:
+
+Core #2:
+1000-1003: 14
+
+Core #3:
+1000-1003: f
+
+Core #4:
+1000-1003: 1
+1004-1007: 3
+2500-2503: 2
+2504-2507: 4
+
+===========================================================
+Core #1 : Contents of Register file
+$zero: 0, $at: 0, $v0: 0, $v1: 0, $a0: 0, $a1: 0, $a2: 0, $a3: 0, $t0: 1, $t1: 0, $t2: 0, $t3: 0, $t4: 0, $t5: 0, $t6: 0, $t7: 0, $s0: 0, $s1: f, $s2: 1, $s3: 78, $s4: 1, $s5: 0, $s6: 0, $s7: 0, $t8: 0, $t9: 0, $k0: 0, $k1: 0, $gp: 0, $sp: 0, $fp: 0, $ra: 0
+
+Core #2 : Contents of Register file
+$zero: 0, $at: 0, $v0: 0, $v1: 0, $a0: 0, $a1: 0, $a2: 0, $a3: 0, $t0: 0, $t1: 0, $t2: 0, $t3: 0, $t4: 0, $t5: 0, $t6: 0, $t7: 0, $s0: 14, $s1: 14, $s2: 190, $s3: 0, $s4: 0, $s5: 0, $s6: 0, $s7: 0, $t8: 0, $t9: 0, $k0: 0, $k1: 0, $gp: 0, $sp: 0, $fp: 0, $ra: 0
+
+Core #3 : Contents of Register file
+$zero: 0, $at: 0, $v0: 0, $v1: 0, $a0: 0, $a1: 0, $a2: 0, $a3: 0, $t0: f, $t1: 0, $t2: 0, $t3: 0, $t4: 0, $t5: 0, $t6: 0, $t7: 0, $s0: 0, $s1: 0, $s2: 0, $s3: 0, $s4: 0, $s5: 0, $s6: 0, $s7: 0, $t8: 0, $t9: 0, $k0: 0, $k1: 0, $gp: 0, $sp: 0, $fp: 0, $ra: 0
+
+Core #4 : Contents of Register file
+$zero: 0, $at: 0, $v0: 0, $v1: 0, $a0: 0, $a1: 0, $a2: 0, $a3: 0, $t0: 1, $t1: 2, $t2: 3, $t3: 4, $t4: 0, $t5: 0, $t6: 0, $t7: 0, $s0: 3e8, $s1: 9c4, $s2: 0, $s3: 0, $s4: 0, $s5: 0, $s6: 0, $s7: 0, $t8: 0, $t9: 0, $k0: 0, $k1: 0, $gp: 0, $sp: 0, $fp: 0, $ra: 0
+
